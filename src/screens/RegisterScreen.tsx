@@ -1,5 +1,5 @@
 import {StackScreenProps} from '@react-navigation/stack';
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -11,12 +11,14 @@ import {
   View,
 } from 'react-native';
 import {WhiteLogo} from '../components/WhiteLogo';
+import {AuthContext} from '../context/AuthContext';
 import {useForm} from '../hooks/useForm';
 import {loginStyles} from '../theme/loginTheme';
 
 interface Props extends StackScreenProps<any, any> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
+  const {singUp} = useContext(AuthContext);
   const {email, password, name, onChange} = useForm({
     name: '',
     email: '',
@@ -24,9 +26,10 @@ export const RegisterScreen = ({navigation}: Props) => {
   });
 
   const onRegister = () => {
-    console.log({email, password, name});
     Keyboard.dismiss();
+    singUp({nombre: name, correo: email, password: password});
   };
+
   return (
     <>
       <KeyboardAvoidingView
