@@ -104,7 +104,8 @@ export const AuthProvider = ({children}: any) => {
       dispatch({
         type: 'addError',
         payload:
-          error.response.data.msg || 'There is an error, please try again',
+          error.response.data.errors[0].msg ||
+          'There is an error, please try again',
       });
     }
   };
